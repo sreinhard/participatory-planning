@@ -17276,7 +17276,7 @@ body {
 }
 
 .btn-white {
-  background-color: #FFF0;
+  background-color: rgba(255, 255, 255, 0);
   border: 2px white solid;
   color: white;
   font-size: 12px;
@@ -17284,17 +17284,17 @@ body {
 
 .menu .btn {
   border: none;
-  background-color: #FFF0;
+  background-color: rgba(255, 255, 255, 0);
   color: #4c4c4c;
 }
 
 .menu .btn:hover {
-  background-color: #fff;
+  background-color: white;
 }
 
 .menu .btn:active,
 .menu .btn.active {
-  background-color: #fff;
+  background-color: white;
   color: #005e95;
 }
 
@@ -17332,14 +17332,14 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   text-align: center;
-  background-color: #FFF9;
+  background-color: rgba(255, 255, 255, 0.6);
   display: inline-block;
   border-radius: 10px;
 }
 
 .bottom .menu {
   border-radius: 20px;
-  background-color: #FFFD;
+  background-color: rgba(255, 255, 255, 0.87);
   margin-bottom: 25px;
 }
 
@@ -17404,12 +17404,12 @@ body {
   margin: 2px;
   display: inline-block;
   cursor: pointer;
-  background-color: #FFF8;
+  background-color: rgba(255, 255, 255, 0.53);
   border-radius: 10px;
 }
 
 .gallery-grid-item:hover {
-  background-color: #fff;
+  background-color: white;
 }
 
 .gallery-grid-item img {
