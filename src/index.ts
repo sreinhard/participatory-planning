@@ -14,8 +14,6 @@
  * limitations under the License.
  *
  */
-import "./config";
-
 import request from "@arcgis/core/request";
 
 import App from "./ts/App";
