@@ -205,7 +205,7 @@ export default class PlanningScene extends declared(WidgetBase) {
     }, 0);
   }
 
-  public whenNotUpdating(): IPromise {
+  public whenNotUpdating(): IPromise<void> {
     return whenNotOnce(this.view, "updating");
   }
 

@@ -153,7 +153,7 @@ export default class Timeline extends declared(WidgetBase) {
     );
   }
 
-  public showIntro(): IPromise {
+  public showIntro(): IPromise<void> {
     this.toggleLoadingIndicator(true);
     this.app.scene.showMaskedBuildings("white");
     this.app.scene.clear();
@@ -168,7 +168,7 @@ export default class Timeline extends declared(WidgetBase) {
     });
   }
 
-  public playIntroAnimation(): IPromise {
+  public playIntroAnimation(): IPromise<void> {
     this.toggleElement("intro", false);
     return this.app.scene
       .whenNotUpdating()
@@ -308,7 +308,7 @@ export default class Timeline extends declared(WidgetBase) {
     this.toggleElement("screenshot", true);
   }
 
-  private goTo(target: Viewpoint | Graphic, duration = 800): IPromise {
+  private goTo(target: Viewpoint | Graphic, duration = 800): IPromise<void> {
     const view = this.app.scene.view;
     return view
       .goTo(target, { duration })
@@ -419,7 +419,7 @@ export default class Timeline extends declared(WidgetBase) {
     return dojoPromise(timeline.finished);
   }
 
-  private toggleBasemap(show: boolean): IPromise {
+  private toggleBasemap(show: boolean): IPromise<void> {
     this.app.scene.map.basemap = (show ? "satellite" : null) as any;
     this.vectorTileLayer.visible = !show;
     return this.app.scene.whenNotUpdating();
