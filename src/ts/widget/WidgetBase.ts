@@ -19,8 +19,8 @@ import {
   declared,
   property,
   subclass
-} from "esri/core/accessorSupport/decorators";
-import Widget from "esri/widgets/Widget";
+} from "@arcgis/core/core/accessorSupport/decorators";
+import Widget from "@arcgis/core/widgets/Widget";
 
 import App from "../App";
 

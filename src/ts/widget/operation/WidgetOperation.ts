@@ -15,7 +15,7 @@
  *
  */
 
-import { create as createPromise } from "esri/core/promiseUtils";
+import { create as createPromise } from "@arcgis/core/core/promiseUtils";
 
 import { Operation } from "../../App";
 import DrawWidget from "../DrawWidget";

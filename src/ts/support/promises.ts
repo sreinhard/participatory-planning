@@ -15,7 +15,7 @@
  *
  */
 
-import { create as createPromise } from "esri/core/promiseUtils";
+import { create as createPromise } from "@arcgis/core/core/promiseUtils";
 
 export const dojoPromise = <T>(nativePromise: Promise<T>): IPromise<T> => {
   return createPromise(((resolve: any, reject: any) => {

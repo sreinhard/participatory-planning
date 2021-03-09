@@ -16,7 +16,7 @@
  */
 import "./config";
 
-import request from "esri/request";
+import request from "@arcgis/core/request";
 
 import App from "./ts/App";
 

@@ -15,17 +15,17 @@
  *
  */
 
-import Accessor from "esri/core/Accessor";
+import Accessor from "@arcgis/core/core/Accessor";
 import {
   declared,
   property,
   subclass
-} from "esri/core/accessorSupport/decorators";
+} from "@arcgis/core/core/accessorSupport/decorators";
 import {
   create as createPromise,
   eachAlways,
   reject as rejectPromise
-} from "esri/core/promiseUtils";
+} from "@arcgis/core/core/promiseUtils";
 
 interface BlobZIPEntry {
   name: string;

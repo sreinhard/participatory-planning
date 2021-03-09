@@ -19,10 +19,10 @@ import {
   declared,
   property,
   subclass
-} from "esri/core/accessorSupport/decorators";
-import Graphic from "esri/Graphic";
-import PolygonSymbol3D from "esri/symbols/PolygonSymbol3D";
-import { renderable, tsx } from "esri/widgets/support/widget";
+} from "@arcgis/core/core/accessorSupport/decorators";
+import Graphic from "@arcgis/core/Graphic";
+import PolygonSymbol3D from "@arcgis/core/symbols/PolygonSymbol3D";
+import { renderable, tsx } from "@arcgis/core/widgets/support/widget";
 
 import DrawWidget from "./DrawWidget";
 

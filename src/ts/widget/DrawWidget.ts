@@ -18,13 +18,13 @@ import {
   declared,
   property,
   subclass
-} from "esri/core/accessorSupport/decorators";
-import { whenOnce } from "esri/core/watchUtils";
-import Polygon from "esri/geometry/Polygon";
-import Polyline from "esri/geometry/Polyline";
-import Graphic from "esri/Graphic";
-import GraphicsLayer from "esri/layers/GraphicsLayer";
-import EsriSymbol from "esri/symbols/Symbol";
+} from "@arcgis/core/core/accessorSupport/decorators";
+import { whenOnce } from "@arcgis/core/core/watchUtils";
+import Polygon from "@arcgis/core/geometry/Polygon";
+import Polyline from "@arcgis/core/geometry/Polyline";
+import Graphic from "@arcgis/core/Graphic";
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
+import EsriSymbol from "@arcgis/core/symbols/Symbol";
 
 import DrawPoint from "./operation/DrawPoint";
 import DrawPolygon from "./operation/DrawPolygon";

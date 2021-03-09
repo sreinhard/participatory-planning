@@ -19,10 +19,10 @@ import {
   declared,
   property,
   subclass
-} from "esri/core/accessorSupport/decorators";
-import Graphic from "esri/Graphic";
-import SimpleLineSymbol from "esri/symbols/SimpleLineSymbol";
-import { renderable, tsx } from "esri/widgets/support/widget";
+} from "@arcgis/core/core/accessorSupport/decorators";
+import Graphic from "@arcgis/core/Graphic";
+import SimpleLineSymbol from "@arcgis/core/symbols/SimpleLineSymbol";
+import { renderable, tsx } from "@arcgis/core/widgets/support/widget";
 
 import DrawWidget from "./DrawWidget";
 

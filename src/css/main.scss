@@ -1,4 +1,4 @@
-$icomoon-font-path: "~arcgis-js-api/themes/base/icons/fonts" !default;
+$icomoon-font-path: "~~@arcgis/core/assets/esri/themes/base/icons/fonts" !default;
 
 // Widgets (sorted alphabetically)
 $include_AreaMeasurement3D: true !default;
@@ -31,5 +31,5 @@ $include_TimePicker: false !default;
 $include_Zoom: true !default;
 
 @import "node_modules/calcite-web/dist/sass/calcite-web";
-@import "~arcgis-js-api/themes/light/main.scss";
+@import "~@arcgis/core/assets/esri/themes/light/main.scss";
 @import "index";
