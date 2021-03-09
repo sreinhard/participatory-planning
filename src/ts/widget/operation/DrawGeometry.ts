@@ -15,7 +15,10 @@
  *
  */
 import Geometry from "@arcgis/core/geometry/Geometry";
-import geometryEngine from "@arcgis/core/geometry/geometryEngine";
+import {
+  intersect,
+  nearestCoordinate
+} from "@arcgis/core/geometry/geometryEngine";
 import Point from "@arcgis/core/geometry/Point";
 import Graphic from "@arcgis/core/Graphic";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
@@ -185,13 +188,13 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
 
   protected clippedGeometry<T extends Geometry>(geometry: T): T | null {
     const maskPolygon = this.scene.maskPolygon;
-    const result = geometryEngine.intersect(maskPolygon, geometry);
+    const result = intersect(maskPolygon, geometry);
     return result as T;
   }
 
   protected snapPoint(point: Point): Point {
     const maskPolygon = this.scene.maskPolygon;
-    return geometryEngine.nearestCoordinate(maskPolygon, point).coordinate;
+    return nearestCoordinate(maskPolygon, point).coordinate;
   }
 
   protected snapVertices(vertices: number[][]) {

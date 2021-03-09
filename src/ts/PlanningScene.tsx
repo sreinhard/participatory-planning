@@ -21,7 +21,7 @@ import {
 } from "@arcgis/core/core/accessorSupport/decorators";
 import Collection from "@arcgis/core/core/Collection";
 import { whenNotOnce } from "@arcgis/core/core/watchUtils";
-import geometryEngine from "@arcgis/core/geometry/geometryEngine";
+import { contains } from "@arcgis/core/geometry/geometryEngine";
 import Point from "@arcgis/core/geometry/Point";
 import Polygon from "@arcgis/core/geometry/Polygon";
 import SpatialReference from "@arcgis/core/geometry/SpatialReference";
@@ -225,7 +225,7 @@ export default class PlanningScene extends WidgetBase {
   private getExtrudedHeight(point: Point, graphic: Graphic) {
     if (
       graphic.symbol.type === "polygon-3d" &&
-      geometryEngine.contains(graphic.geometry, point)
+      contains(graphic.geometry, point)
     ) {
       const layers = graphic.get<any>("symbol.symbolLayers");
       const extrusion = layers && layers.getItemAt(0).size;
