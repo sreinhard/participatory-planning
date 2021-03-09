@@ -1,4 +1,3 @@
-const ArcGISPlugin = require("@arcgis/webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -53,16 +52,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["dist/*"]),
-
-    new ArcGISPlugin({
-      useDefaultAssetLoaders: false,
-      // features: {
-      //   has: {
-      //     // enable native promise in ArcGIS API for JavaScript
-      //     'esri-native-promise': true,
-      //   }
-      // }
-    }),
 
     new HtmlWebPackPlugin({
       title: "ArcGIS Template Application",
