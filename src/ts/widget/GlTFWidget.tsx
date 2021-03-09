@@ -37,7 +37,7 @@ enum GlTFWidgetState {
 }
 
 @subclass("app.draw.GlTFWidget")
-export default class GlTFWidget extends declared(DrawWidget) {
+export default class GlTFWidget extends DrawWidget {
   @property()
   @renderable()
   public state: GlTFWidgetState = GlTFWidgetState.Idle;

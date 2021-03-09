@@ -39,7 +39,7 @@ export enum SymbolGroupId {
 }
 
 @subclass("app.draw.SymbolGallery")
-export default class SymbolGallery extends declared(DrawWidget) {
+export default class SymbolGallery extends DrawWidget {
   @property() public scene: PlanningScene;
 
   @property() public groups = new Collection<SymbolGroup>();

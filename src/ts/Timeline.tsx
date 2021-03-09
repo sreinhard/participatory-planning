@@ -52,7 +52,7 @@ const EMPTY_POLYLINE = new Polyline({
 });
 
 @subclass("app.widgets.Timeline")
-export default class Timeline extends declared(WidgetBase) {
+export default class Timeline extends WidgetBase {
   private vectorTileLayer = new VectorTileLayer({
     portalItem: {
       id: "5cf1abb43c25482e8a9e373953498999"

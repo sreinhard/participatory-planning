@@ -25,7 +25,7 @@ import Widget from "@arcgis/core/widgets/Widget";
 import App from "../App";
 
 @subclass("app.widgets.WidgetBase")
-export default class WidgetBase extends declared(Widget) {
+export default class WidgetBase extends Widget {
   @property()
   public app: App;
 

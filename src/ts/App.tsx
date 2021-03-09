@@ -51,7 +51,7 @@ export interface Settings {
 }
 
 @subclass("app.widgets.webmapview")
-export default class App extends declared(WidgetBase) {
+export default class App extends WidgetBase {
   @aliasOf("scene.map.portalItem.title")
   @renderable()
   public title: string;

@@ -29,7 +29,7 @@ import SymbolItem from "./SymbolItem";
 export const SymbolItemCollection = Collection.ofType<SymbolItem>(SymbolItem);
 
 @subclass("draw.symbolgallery.SymbolGroup")
-export default class SymbolGroup extends declared(Accessor) {
+export default class SymbolGroup extends Accessor {
   @property({
     readOnly: true,
     type: SymbolItemCollection

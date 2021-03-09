@@ -32,7 +32,7 @@ interface ColorMenu {
 }
 
 @subclass("app.draw.CreateArea")
-export default class CreateArea extends declared(DrawWidget) {
+export default class CreateArea extends DrawWidget {
   @renderable()
   @property()
   private activeColor: string | null = null;

@@ -33,7 +33,7 @@ interface PathMenu {
 }
 
 @subclass("app.draw.CreatePath")
-export default class CreatePath extends declared(DrawWidget) {
+export default class CreatePath extends DrawWidget {
   @renderable()
   @property()
   private activeMenu: PathMenu | null = null;

@@ -30,7 +30,7 @@ const BUILDING_COLOR = "#FFFFFF";
 const BUILDING_FLOOR_HEIGHT = 3;
 
 @subclass("app.draw.CreateBuilding")
-export default class CreateBuilding extends declared(DrawWidget) {
+export default class CreateBuilding extends DrawWidget {
   @renderable()
   @property()
   private stories: number;

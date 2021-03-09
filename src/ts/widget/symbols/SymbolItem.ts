@@ -25,7 +25,7 @@ import EsriSymbol from "@arcgis/core/symbols/Symbol";
 import WebStyleSymbol from "@arcgis/core/symbols/WebStyleSymbol";
 
 @subclass("widgets.symbolgallery.SymbolItem")
-export default class SymbolItem extends declared(Accessor) {
+export default class SymbolItem extends Accessor {
   @property({
     constructOnly: true
   })

@@ -42,7 +42,7 @@ interface ZIPEntry {
 const ZIP_PROGRESS_FACTOR = 0.5;
 
 @subclass("app.draw.support.GlTFImport")
-export default class GlTFImport extends declared(Accessor) {
+export default class GlTFImport extends Accessor {
   @property()
   public progress = 0;
 

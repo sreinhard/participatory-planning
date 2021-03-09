@@ -32,7 +32,7 @@ import DrawPolyline from "./operation/DrawPolyline";
 import WidgetBase from "./WidgetBase";
 
 @subclass("app.draw.DrawWidget")
-export default class DrawWidget extends declared(WidgetBase) {
+export default class DrawWidget extends WidgetBase {
   @property()
   public layer: GraphicsLayer;
 
