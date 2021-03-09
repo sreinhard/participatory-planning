@@ -15,14 +15,17 @@
  *
  */
 
-import { declared, property, subclass } from "esri/core/accessorSupport/decorators";
+import {
+  declared,
+  property,
+  subclass
+} from "esri/core/accessorSupport/decorators";
 import Widget from "esri/widgets/Widget";
 
 import App from "../App";
 
 @subclass("app.widgets.WidgetBase")
 export default class WidgetBase extends declared(Widget) {
-
   @property()
   public app: App;
 
@@ -57,5 +60,4 @@ export default class WidgetBase extends declared(Widget) {
       overlay.style.opacity = opacity.toString();
     }
   }
-
 }

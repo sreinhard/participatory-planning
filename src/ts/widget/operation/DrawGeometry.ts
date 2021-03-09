@@ -24,12 +24,14 @@ import PlanningScene from "../../PlanningScene";
 import DrawWidget from "../DrawWidget";
 import WidgetOperation, { OperationHandle } from "./WidgetOperation";
 
-
 export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
-
   protected scene: PlanningScene;
 
-  constructor(widget: DrawWidget, public readonly graphic: Graphic, protected geometryType: string) {
+  constructor(
+    widget: DrawWidget,
+    public readonly graphic: Graphic,
+    protected geometryType: string
+  ) {
     super(widget);
     this.scene = widget.app.scene;
   }
@@ -48,8 +50,8 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
 
     const sketchViewModel = this.createSketchViewModel();
 
-    const keyEventListener = this.scene.view.on("key-down", (event) => {
-      const remove = (event.key === "Delete" || event.key === "Backspace");
+    const keyEventListener = this.scene.view.on("key-down", event => {
+      const remove = event.key === "Delete" || event.key === "Backspace";
       if (remove || event.key === "Escape") {
         if (remove || create) {
           this.widget.layer.remove(this.graphic);
@@ -58,22 +60,24 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
       }
     });
 
-    const promise = this.initiate<G>((handle) => {
+    const promise = this.initiate<G>(
+      handle => {
+        if (create) {
+          this.scene.view.highlightOptions.haloOpacity = 0;
+        }
+        this.scene.view.highlightOptions.fillOpacity = 0;
 
-      if (create) {
-        this.scene.view.highlightOptions.haloOpacity = 0;
+        sketchViewModel.on(["create", "update"], event => {
+          this.onSketchViewModelEvent(sketchViewModel, event, handle);
+        });
+
+        this.launchSketchViewModel(sketchViewModel, create);
+        this.scene.view.focus();
+      },
+      () => {
+        sketchViewModel.cancel();
       }
-      this.scene.view.highlightOptions.fillOpacity = 0;
-
-      sketchViewModel.on(["create", "update"], (event) => {
-        this.onSketchViewModelEvent(sketchViewModel, event, handle);
-      });
-
-      this.launchSketchViewModel(sketchViewModel, create);
-      this.scene.view.focus();
-    }, () => {
-      sketchViewModel.cancel();
-    });
+    );
 
     // Clean up
     promise.always(() => {
@@ -91,12 +95,14 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
     return promise;
   }
 
-  protected launchSketchViewModel(sketchViewModel: SketchViewModel, create: boolean) {
+  protected launchSketchViewModel(
+    sketchViewModel: SketchViewModel,
+    create: boolean
+  ) {
     const sketchGraphic = this.createSketch(sketchViewModel);
     if (create) {
       sketchViewModel.create(this.geometryType);
     } else {
-
       // Remove z value for point graphics as currently the SketchViewModel won't allow that
       const hasZ = sketchGraphic.geometry.hasZ;
       const lastGeometry = sketchGraphic.geometry.clone();
@@ -112,7 +118,11 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
     }
   }
 
-  protected onSketchViewModelEvent(sketchViewModel: SketchViewModel, event: any, handle: OperationHandle<G>) {
+  protected onSketchViewModelEvent(
+    sketchViewModel: SketchViewModel,
+    event: any,
+    handle: OperationHandle<G>
+  ) {
     const sketch = this.graphicFromEvent(event);
     // If we are done, remove extra sketch graphic
     if (event.state === "cancel" || event.state === "complete") {
@@ -145,7 +155,7 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
     return new SketchViewModel({
       view: this.scene.view,
       layer: this.widget.layer,
-      updateOnGraphicClick: false,
+      updateOnGraphicClick: false
     });
   }
 
@@ -183,12 +193,14 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
 
   protected snapVertices(vertices: number[][]) {
     const spatialReference = this.scene.view.spatialReference;
-    vertices.forEach((point) => {
-      const snappedPoint = this.snapPoint(new Point({
-        x: point[0],
-        y: point[1],
-        spatialReference,
-      }));
+    vertices.forEach(point => {
+      const snappedPoint = this.snapPoint(
+        new Point({
+          x: point[0],
+          y: point[1],
+          spatialReference
+        })
+      );
       point[0] = snappedPoint.x;
       point[1] = snappedPoint.y;
     });
@@ -200,5 +212,4 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
     }
     return event.graphic;
   }
-
 }

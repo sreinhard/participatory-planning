@@ -15,7 +15,11 @@
  *
  */
 
-import { declared, property, subclass } from "esri/core/accessorSupport/decorators";
+import {
+  declared,
+  property,
+  subclass
+} from "esri/core/accessorSupport/decorators";
 import Graphic from "esri/Graphic";
 import SimpleLineSymbol from "esri/symbols/SimpleLineSymbol";
 import { renderable, tsx } from "esri/widgets/support/widget";
@@ -30,7 +34,6 @@ interface PathMenu {
 
 @subclass("app.draw.CreatePath")
 export default class CreatePath extends declared(DrawWidget) {
-
   @renderable()
   @property()
   private activeMenu: PathMenu | null = null;
@@ -39,13 +42,13 @@ export default class CreatePath extends declared(DrawWidget) {
     {
       label: "Street",
       color: "#cbcbcb",
-      width: 20,
+      width: 20
     },
     {
       label: "Walking Path",
       color: "#b2b2b2",
-      width: 3,
-    },
+      width: 3
+    }
   ];
 
   public render() {
@@ -54,13 +57,16 @@ export default class CreatePath extends declared(DrawWidget) {
     return (
       <div>
         <div class="menu">
-          { this.menus.map((menu) => (
+          {this.menus.map(menu => (
             <div class="menu-item">
               <button
                 class={menu === this.activeMenu ? active : inactive}
-                onclick={ this.startDrawing.bind(this, menu) }>Create {menu.label}</button>
+                onclick={this.startDrawing.bind(this, menu)}
+              >
+                Create {menu.label}
+              </button>
             </div>
-          )) }
+          ))}
         </div>
       </div>
     );
@@ -73,7 +79,7 @@ export default class CreatePath extends declared(DrawWidget) {
   private startDrawing(menu: PathMenu) {
     const symbol = new SimpleLineSymbol({
       color: menu.color,
-      width: menu.width,
+      width: menu.width
     });
 
     this.createPolylineGraphic(symbol, menu.color).always(() => {
@@ -81,5 +87,4 @@ export default class CreatePath extends declared(DrawWidget) {
     });
     this.activeMenu = menu;
   }
-
 }

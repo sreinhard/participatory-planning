@@ -14,7 +14,11 @@
  * limitations under the License.
  *
  */
-import { declared, property, subclass } from "esri/core/accessorSupport/decorators";
+import {
+  declared,
+  property,
+  subclass
+} from "esri/core/accessorSupport/decorators";
 import Collection from "esri/core/Collection";
 import { whenNotOnce } from "esri/core/watchUtils";
 import geometryEngine from "esri/geometry/geometryEngine";
@@ -39,7 +43,6 @@ export const QUALITY = "medium";
 
 @subclass("app.widgets.webmapview")
 export default class PlanningScene extends declared(WidgetBase) {
-
   @property()
   public map: WebScene;
 
@@ -49,8 +52,8 @@ export default class PlanningScene extends declared(WidgetBase) {
   @property()
   public sketchLayer = new GraphicsLayer({
     elevationInfo: {
-      mode: "on-the-ground",
-    },
+      mode: "on-the-ground"
+    }
   });
 
   public maskPolygon: Polygon;
@@ -64,46 +67,47 @@ export default class PlanningScene extends declared(WidgetBase) {
   private sceneLayerRenderer = new SimpleRenderer({
     symbol: {
       type: "mesh-3d",
-      symbolLayers: [{
-        type: "fill",
-        material: {
-          color: "white",
-        },
-        edges: {
-          type: "solid",
-          color: [150, 150, 150],
-          size: .5,
-        },
-      }],
-    },
+      symbolLayers: [
+        {
+          type: "fill",
+          material: {
+            color: "white"
+          },
+          edges: {
+            type: "solid",
+            color: [150, 150, 150],
+            size: 0.5
+          }
+        }
+      ]
+    }
   } as any);
 
   private boundingPolygonGraphic: Graphic;
 
   public postInitialize() {
-
     // Create global view reference
     (window as any).view = this.view;
 
     this.map = new WebScene({
       portalItem: {
-        id: this.app.settings.webSceneId,
-      },
+        id: this.app.settings.webSceneId
+      }
     });
 
     this.view = new SceneView({
       map: this.map,
-      qualityProfile: QUALITY,
+      qualityProfile: QUALITY
     } as any);
 
     this.maskPolygon = new Polygon({
       rings: [this.app.settings.planningArea],
-      spatialReference: SpatialReference.WebMercator,
+      spatialReference: SpatialReference.WebMercator
     });
 
     this.sceneLayerFilter = new FeatureFilter({
       spatialRelationship: "disjoint",
-      geometry: this.maskPolygon,
+      geometry: this.maskPolygon
     });
 
     this.boundingPolygonGraphic = new Graphic({
@@ -112,15 +116,17 @@ export default class PlanningScene extends declared(WidgetBase) {
         type: "simple-fill",
         color: [0, 0, 0, 0.15],
         outline: {
-          width: 0,
-        },
-      } as any,
+          width: 0
+        }
+      } as any
     });
 
     this.map.when(() => {
       this.map.add(this.sketchLayer);
       this.sketchLayer.add(this.boundingPolygonGraphic);
-      this.sceneLayer = this.map.layers.find((layer) => layer.type === "scene") as SceneLayer;
+      this.sceneLayer = this.map.layers.find(
+        layer => layer.type === "scene"
+      ) as SceneLayer;
       this.sceneLayer.renderer = this.sceneLayerRenderer;
       this.sceneLayer.popupEnabled = false;
       this.view.whenLayerView(this.sceneLayer).then((lv: SceneLayerView) => {
@@ -132,13 +138,13 @@ export default class PlanningScene extends declared(WidgetBase) {
   public render() {
     return (
       <div>
-        <div id="sceneView" bind={ this } afterCreate={ this.attachSceneView } />
+        <div id="sceneView" bind={this} afterCreate={this.attachSceneView} />
       </div>
     );
   }
 
   public clear() {
-    this.drawLayers().forEach((layer) => layer.removeAll());
+    this.drawLayers().forEach(layer => layer.removeAll());
   }
 
   public showMaskedBuildings(color?: any) {
@@ -146,32 +152,32 @@ export default class PlanningScene extends declared(WidgetBase) {
       // Show masked buildings with provided color, all other buildings are white
       this.boundingPolygonGraphic.visible = false;
       this.sceneLayerView.set("filter", null);
-      this.drawLayers().forEach((layer) => layer.visible = false);
+      this.drawLayers().forEach(layer => (layer.visible = false));
     } else {
       this.sceneLayerView.filter = this.sceneLayerFilter;
-      this.drawLayers().forEach((layer) => layer.visible = true);
+      this.drawLayers().forEach(layer => (layer.visible = true));
       this.boundingPolygonGraphic.visible = true;
     }
     this.sceneLayer.visible = true;
   }
 
   public showTexturedBuildings() {
-    this.drawLayers().forEach((layer) => layer.visible = false);
+    this.drawLayers().forEach(layer => (layer.visible = false));
     this.sceneLayer.visible = true;
     this.sceneLayerView.set("filter", null);
     this.boundingPolygonGraphic.symbol = {
-        type: "simple-fill",
-        color: [0, 0, 0, 0],
-        outline: {
-          width: 0,
-        },
-      } as any;
+      type: "simple-fill",
+      color: [0, 0, 0, 0],
+      outline: {
+        width: 0
+      }
+    } as any;
   }
 
   public adjustSymbolHeights() {
-    this.drawLayers().forEach((layer) => {
+    this.drawLayers().forEach(layer => {
       if (layer.get("elevationInfo.mode") === "relative-to-ground") {
-        layer.graphics.toArray().forEach((graphic) => {
+        layer.graphics.toArray().forEach(graphic => {
           this.adjustHeight(graphic);
         });
       }
@@ -204,7 +210,7 @@ export default class PlanningScene extends declared(WidgetBase) {
   }
 
   public drawLayers(): Collection<GraphicsLayer> {
-    return this.map.layers.filter((layer) => {
+    return this.map.layers.filter(layer => {
       if (layer instanceof GraphicsLayer) {
         return layer !== this.sketchLayer;
       }
@@ -217,12 +223,14 @@ export default class PlanningScene extends declared(WidgetBase) {
   }
 
   private getExtrudedHeight(point: Point, graphic: Graphic) {
-    if (graphic.symbol.type === "polygon-3d" && geometryEngine.contains(graphic.geometry, point)) {
+    if (
+      graphic.symbol.type === "polygon-3d" &&
+      geometryEngine.contains(graphic.geometry, point)
+    ) {
       const layers = graphic.get<any>("symbol.symbolLayers");
       const extrusion = layers && layers.getItemAt(0).size;
       return extrusion;
     }
     return 0;
   }
-
 }

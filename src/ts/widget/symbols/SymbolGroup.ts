@@ -15,7 +15,11 @@
  *
  */
 import Accessor from "esri/core/Accessor";
-import { declared, property, subclass } from "esri/core/accessorSupport/decorators";
+import {
+  declared,
+  property,
+  subclass
+} from "esri/core/accessorSupport/decorators";
 import Collection from "esri/core/Collection";
 import PortalItem from "esri/portal/PortalItem";
 
@@ -26,29 +30,31 @@ export const SymbolItemCollection = Collection.ofType<SymbolItem>(SymbolItem);
 
 @subclass("draw.symbolgallery.SymbolGroup")
 export default class SymbolGroup extends declared(Accessor) {
-
   @property({
     readOnly: true,
-    type: SymbolItemCollection,
+    type: SymbolItemCollection
   })
   public readonly items = new SymbolItemCollection();
 
-  constructor(public category: SymbolGroupId, portalItems: IPromise<PortalItem[]>) {
+  constructor(
+    public category: SymbolGroupId,
+    portalItems: IPromise<PortalItem[]>
+  ) {
     super();
 
-    portalItems.then((items) => this.addSymbolItems(items));
+    portalItems.then(items => this.addSymbolItems(items));
   }
 
   private addSymbolItems(items: PortalItem[]) {
-    items.forEach((item) => {
+    items.forEach(item => {
       const styleName = this.getStyleName(item);
 
       if (this.styleNameMatchesGroup(styleName)) {
-        item.fetchData().then((data) => {
+        item.fetchData().then(data => {
           this.items.addMany(
             data.items
-            //  .filter((symbolItem: any) => symbolItem.thumbnail.href && symbolItem.dimensionality === "volumetric")
-              .map((symbolItem: any) => new SymbolItem(symbolItem, styleName)),
+              //  .filter((symbolItem: any) => symbolItem.thumbnail.href && symbolItem.dimensionality === "volumetric")
+              .map((symbolItem: any) => new SymbolItem(symbolItem, styleName))
           );
         });
       }
@@ -72,9 +78,8 @@ export default class SymbolGroup extends declared(Accessor) {
         return styleName === "EsriRealisticTreesStyle";
       case SymbolGroupId.Vehicles:
         return styleName === "EsriRealisticTransportationStyle";
-          // || styleName === "EsriInfrastructureStyle";
+      // || styleName === "EsriInfrastructureStyle";
     }
     return false;
   }
-
 }

@@ -15,7 +15,12 @@
  *
  */
 
-import { aliasOf, declared, property, subclass } from "esri/core/accessorSupport/decorators";
+import {
+  aliasOf,
+  declared,
+  property,
+  subclass
+} from "esri/core/accessorSupport/decorators";
 import Graphic from "esri/Graphic";
 import ObjectSymbol3DLayer from "esri/symbols/ObjectSymbol3DLayer";
 import PointSymbol3D from "esri/symbols/PointSymbol3D";
@@ -28,12 +33,11 @@ enum GlTFWidgetState {
   Import = "Import",
   Loading = "Loading",
   Place = "Place",
-  Idle = "Idle",
+  Idle = "Idle"
 }
 
 @subclass("app.draw.GlTFWidget")
 export default class GlTFWidget extends declared(DrawWidget) {
-
   @property()
   @renderable()
   public state: GlTFWidgetState = GlTFWidgetState.Idle;
@@ -48,9 +52,11 @@ export default class GlTFWidget extends declared(DrawWidget) {
 
   public postInitialize() {
     this.layer.elevationInfo = {
-      mode: "relative-to-ground",
+      mode: "relative-to-ground"
     };
-    this.watch("progress", (value) => this.toggleLoadingIndicator(true, "Importing " + value + "%"));
+    this.watch("progress", value =>
+      this.toggleLoadingIndicator(true, "Importing " + value + "%")
+    );
   }
 
   public render() {
@@ -65,10 +71,12 @@ export default class GlTFWidget extends declared(DrawWidget) {
 
     return (
       <div>
-        <div class={ classList[GlTFWidgetState.Import].join(" ") }
-          afterCreate={ this.attachImportWidget.bind(this) }>
-            <div id="glTFLogo" class="gltf-logo"></div>
-          </div>
+        <div
+          class={classList[GlTFWidgetState.Import].join(" ")}
+          afterCreate={this.attachImportWidget.bind(this)}
+        >
+          <div id="glTFLogo" class="gltf-logo"></div>
+        </div>
       </div>
     );
   }
@@ -89,49 +97,47 @@ export default class GlTFWidget extends declared(DrawWidget) {
     this.toggleLoadingIndicator(true);
     this.state = GlTFWidgetState.Loading;
     this.currentImport = new GlTFImport(url);
-    this.currentImport.blobUrl.then((blobUrl) => {
+    this.currentImport.blobUrl
+      .then(blobUrl => {
+        this.toggleLoadingIndicator(false);
 
-      this.toggleLoadingIndicator(false);
+        // Place imported glTF in center of view
+        const point = this.app.scene.view.center.clone();
+        point.hasZ = true;
+        point.z = this.app.scene.heightAtPoint(point);
 
-      // Place imported glTF in center of view
-      const point = this.app.scene.view.center.clone();
-      point.hasZ = true;
-      point.z = this.app.scene.heightAtPoint(point);
+        const graphic = new Graphic({
+          geometry: point,
+          symbol: new PointSymbol3D({
+            symbolLayers: [
+              new ObjectSymbol3DLayer({
+                resource: {
+                  href: blobUrl
+                },
+                anchor: "relative",
+                anchorPosition: { x: 0, y: 0, z: -0.5 }
+                // height: 50,
+              })
+            ]
+          })
+        });
 
-      const graphic = new Graphic({
-        geometry: point,
-        symbol: new PointSymbol3D({
-          symbolLayers: [
-            new ObjectSymbol3DLayer({
-              resource: {
-                href: blobUrl,
-              },
-              anchor: "relative",
-              anchorPosition: { x: 0, y: 0, z: -0.5 },
-              // height: 50,
-            }),
-          ],
-        }),
+        // this.layer.removeAll();
+        this.layer.add(graphic);
+        this.updateGraphic(graphic);
+
+        this.state = GlTFWidgetState.Idle;
+      })
+      .catch(error => {
+        console.error("Something just went wrong", error);
       });
-
-      // this.layer.removeAll();
-      this.layer.add(graphic);
-      this.updateGraphic(graphic);
-
-      this.state = GlTFWidgetState.Idle;
-
-    }).catch((error) => {
-      console.error("Something just went wrong", error);
-    });
   }
 
   private attachImportWidget(element: HTMLDivElement): any {
-    return new (window as any).SketchfabImporter(
-        element, {
-        onModelSelected: (result: any) => {
-          this.importGlTF(result.download.gltf.url);
-        },
+    return new (window as any).SketchfabImporter(element, {
+      onModelSelected: (result: any) => {
+        this.importGlTF(result.download.gltf.url);
+      }
     });
   }
-
 }
