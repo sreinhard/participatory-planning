@@ -67,9 +67,12 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
         }
         this.scene.view.highlightOptions.fillOpacity = 0;
 
-        sketchViewModel.on(["create", "update"], event => {
-          this.onSketchViewModelEvent(sketchViewModel, event, handle);
-        });
+        sketchViewModel.on("create", event =>
+          this.onSketchViewModelEvent(sketchViewModel, event, handle)
+        );
+        sketchViewModel.on("update", event =>
+          this.onSketchViewModelEvent(sketchViewModel, event, handle)
+        );
 
         this.launchSketchViewModel(sketchViewModel, create);
         this.scene.view.focus();
