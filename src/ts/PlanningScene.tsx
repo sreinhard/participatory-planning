@@ -85,7 +85,7 @@ export default class PlanningScene extends WidgetBase {
 
   private boundingPolygonGraphic: Graphic;
 
-  public postInitialize() {
+  public initialize() {
     // Create global view reference
     (window as any).view = this.view;
 
