@@ -202,7 +202,7 @@ export default class Timeline extends WidgetBase {
       this.app.scene.view.width,
       this.app.scene.view.height
     );
-    const options = { format: "png", width: width * 0.8 };
+    const options = { format: "png" as "png", width: width * 0.8 };
     this.toggleLoadingIndicator(true, "Capturing Scene");
 
     setTimeout(() => {

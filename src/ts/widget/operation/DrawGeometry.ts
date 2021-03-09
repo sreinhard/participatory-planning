@@ -14,7 +14,6 @@
  * limitations under the License.
  *
  */
-import Geometry from "@arcgis/core/geometry/Geometry";
 import {
   intersect,
   nearestCoordinate
@@ -27,13 +26,16 @@ import PlanningScene from "../../PlanningScene";
 import DrawWidget from "../DrawWidget";
 import WidgetOperation, { OperationHandle } from "./WidgetOperation";
 
+// This is the internal type of the geometry engine. User should not need to access this.
+type Geometry = __esri.geometryGeometry;
+
 export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
   protected scene: PlanningScene;
 
   constructor(
     widget: DrawWidget,
     public readonly graphic: Graphic,
-    protected geometryType: string
+    protected geometryType: "point" | "polyline" | "polygon"
   ) {
     super(widget);
     this.scene = widget.app.scene;

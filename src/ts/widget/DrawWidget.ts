@@ -23,7 +23,10 @@ import Polygon from "@arcgis/core/geometry/Polygon";
 import Polyline from "@arcgis/core/geometry/Polyline";
 import Graphic from "@arcgis/core/Graphic";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
-import EsriSymbol from "@arcgis/core/symbols/Symbol";
+import PointSymbol3D from "@arcgis/core/symbols/PointSymbol3D";
+import PolygonSymbol3D from "@arcgis/core/symbols/PolygonSymbol3D";
+import SimpleFillSymbol from "@arcgis/core/symbols/SimpleFillSymbol";
+import SimpleLineSymbol from "@arcgis/core/symbols/SimpleLineSymbol";
 
 import DrawPoint from "./operation/DrawPoint";
 import DrawPolygon from "./operation/DrawPolygon";
@@ -55,7 +58,7 @@ export default class DrawWidget extends WidgetBase {
   }
 
   protected createPolylineGraphic(
-    symbol: EsriSymbol,
+    symbol: SimpleLineSymbol,
     sketchColor: string
   ): IPromise<Graphic[]> {
     const graphic = new Graphic({ symbol });
@@ -65,7 +68,7 @@ export default class DrawWidget extends WidgetBase {
   }
 
   protected createPolygonGraphic(
-    symbol: EsriSymbol,
+    symbol: PolygonSymbol3D | SimpleFillSymbol,
     sketchColor: string
   ): IPromise<Graphic[]> {
     const graphic = new Graphic({ symbol });
@@ -74,7 +77,7 @@ export default class DrawWidget extends WidgetBase {
       .then(polygon => this.splitPolygon(polygon, graphic));
   }
 
-  protected createPointGraphic(symbol: EsriSymbol): IPromise<Graphic> {
+  protected createPointGraphic(symbol: PointSymbol3D): IPromise<Graphic> {
     const graphic = new Graphic({ symbol });
     return new DrawPoint(this, graphic).create().then(() => {
       return graphic;

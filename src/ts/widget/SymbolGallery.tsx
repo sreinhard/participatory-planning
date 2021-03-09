@@ -23,7 +23,7 @@ import Portal from "@arcgis/core/portal/Portal";
 import PortalItem from "@arcgis/core/portal/PortalItem";
 import PortalQueryParams from "@arcgis/core/portal/PortalQueryParams";
 import PortalQueryResult from "@arcgis/core/portal/PortalQueryResult";
-import EsriSymbol from "@arcgis/core/symbols/Symbol";
+import PointSymbol3D from "@arcgis/core/symbols/PointSymbol3D";
 import { renderable, tsx } from "@arcgis/core/widgets/support/widget";
 
 import PlanningScene from "../PlanningScene";
@@ -118,9 +118,9 @@ export default class SymbolGallery extends DrawWidget {
     }
   }
 
-  private placeSymbol(symbol: EsriSymbol) {
+  private placeSymbol(symbol: PointSymbol3D) {
     this.createPointGraphic(symbol).then(graphic => {
-      this.placeSymbol(graphic.symbol);
+      this.placeSymbol(symbol);
     });
   }
 

@@ -20,7 +20,7 @@ import {
   subclass
 } from "@arcgis/core/core/accessorSupport/decorators";
 import IconSymbol3DLayer from "@arcgis/core/symbols/IconSymbol3DLayer";
-import EsriSymbol from "@arcgis/core/symbols/Symbol";
+import PointSymbol3D from "@arcgis/core/symbols/PointSymbol3D";
 import WebStyleSymbol from "@arcgis/core/symbols/WebStyleSymbol";
 
 @subclass("widgets.symbolgallery.SymbolItem")
@@ -35,7 +35,7 @@ export default class SymbolItem extends Accessor {
 
   public webSymbol: WebStyleSymbol;
 
-  private fetchPromise: IPromise<EsriSymbol>;
+  private fetchPromise: IPromise<PointSymbol3D>;
 
   constructor(data: any, styleName: string) {
     super(data);
@@ -46,7 +46,7 @@ export default class SymbolItem extends Accessor {
     });
   }
 
-  public fetchSymbol(): IPromise<EsriSymbol> {
+  public fetchSymbol(): IPromise<PointSymbol3D> {
     if (!this.fetchPromise) {
       this.fetchPromise = this.webSymbol.fetchSymbol().then(actualSymbol => {
         // Add vertical offset to icon symbols as otherwise they vanish inside
