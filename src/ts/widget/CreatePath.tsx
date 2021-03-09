@@ -81,9 +81,11 @@ export default class CreatePath extends DrawWidget {
       width: menu.width
     });
 
-    this.createPolylineGraphic(symbol, menu.color).always(() => {
-      this.activeMenu = null;
-    });
+    this.createPolylineGraphic(symbol, menu.color)
+      .then()
+      .catch(() => {
+        this.activeMenu = null;
+      });
     this.activeMenu = menu;
   }
 }

@@ -39,7 +39,7 @@ export default class DrawPoint extends DrawGeometry<Point> {
     });
 
     // Remove event listener when operation is done
-    result.always(() => handler.remove());
+    result.then().catch(() => handler.remove());
 
     return result;
   }

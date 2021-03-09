@@ -86,7 +86,7 @@ export default class DrawGeometry<G extends Geometry> extends WidgetOperation {
     );
 
     // Clean up
-    promise.always(() => {
+    promise.then().catch(() => {
       // Cleanup resources
       keyEventListener.remove();
       sketchViewModel.cancel();

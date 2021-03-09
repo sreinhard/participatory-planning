@@ -79,9 +79,11 @@ export default class CreateBuilding extends DrawWidget {
         }
       ] as any
     });
-    this.createPolygonGraphic(symbol, color).always(() => {
-      this.stories = 0;
-    });
+    this.createPolygonGraphic(symbol, color)
+      .then()
+      .catch(() => {
+        this.stories = 0;
+      });
     this.stories = stories;
   }
 }

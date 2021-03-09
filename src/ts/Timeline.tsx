@@ -29,7 +29,6 @@ import Viewpoint from "@arcgis/core/Viewpoint";
 import Slide from "@arcgis/core/webscene/Slide";
 import { renderable, tsx } from "@arcgis/core/widgets/support/widget";
 
-import { dojoPromise } from "./support/promises";
 import WidgetBase from "./widget/WidgetBase";
 
 export const AREA_ANIMATION_DURATION = 2000;
@@ -371,7 +370,7 @@ export default class Timeline extends WidgetBase {
         }
       });
     });
-    return dojoPromise(timeline.finished);
+    return timeline.finished;
   }
 
   private animateMask(): IPromise<void> {
@@ -415,7 +414,7 @@ export default class Timeline extends WidgetBase {
           this.maskPolyline.geometry = EMPTY_POLYLINE;
         }
       });
-    return dojoPromise(timeline.finished);
+    return timeline.finished;
   }
 
   private toggleBasemap(show: boolean): IPromise<void> {

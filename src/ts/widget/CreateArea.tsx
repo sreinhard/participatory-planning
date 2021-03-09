@@ -88,7 +88,7 @@ export default class CreateArea extends DrawWidget {
       }
     });
 
-    this.createPolygonGraphic(symbol, color).always(() => {
+    this.createPolygonGraphic(symbol, color).then(() => {
       this.activeColor = null;
     });
     this.activeColor = color;

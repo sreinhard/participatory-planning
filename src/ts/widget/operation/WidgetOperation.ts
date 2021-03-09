@@ -57,7 +57,7 @@ export default class WidgetOperation implements Operation {
       start({ resolve, reject });
     }) as any);
 
-    promise.always(() => {
+    promise.then().catch(() => {
       this.widget.app.currentOperation = null;
     });
     return promise;
