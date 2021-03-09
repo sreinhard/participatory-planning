@@ -18,7 +18,6 @@ import anime from "animejs";
 import Color from "@arcgis/core/Color";
 import {
   aliasOf,
-  declared,
   subclass
 } from "@arcgis/core/core/accessorSupport/decorators";
 import Collection from "@arcgis/core/core/Collection";

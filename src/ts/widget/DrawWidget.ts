@@ -15,7 +15,6 @@
  *
  */
 import {
-  declared,
   property,
   subclass
 } from "@arcgis/core/core/accessorSupport/decorators";

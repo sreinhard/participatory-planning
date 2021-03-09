@@ -17,7 +17,6 @@
 
 import {
   aliasOf,
-  declared,
   property,
   subclass
 } from "@arcgis/core/core/accessorSupport/decorators";

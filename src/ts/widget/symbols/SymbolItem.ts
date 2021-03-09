@@ -16,7 +16,6 @@
  */
 import Accessor from "@arcgis/core/core/Accessor";
 import {
-  declared,
   property,
   subclass
 } from "@arcgis/core/core/accessorSupport/decorators";
